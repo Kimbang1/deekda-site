@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deekda 지원 · Support</title>
+<style>
+  :root { --bg: #ffffff; --text: #1b1f24; --muted: #5b6470; --line: #e3e6ea; --accent: #0a84ff; --card: #f5f7fa; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #0b1020; --text: #e8ecf2; --muted: #9aa4b2; --line: #232b3b; --accent: #67e8f9; --card: #131a2c; }
+  }
+  body { margin: 0; background: var(--bg); color: var(--text);
+         font: 16px/1.65 -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Segoe UI", sans-serif; }
+  main { max-width: 760px; margin: 0 auto; padding: 32px 16px 64px; }
+  h1 { font-size: 26px; margin: 0 0 4px; }
+  h2 { font-size: 19px; margin: 32px 0 8px; }
+  .meta { color: var(--muted); font-size: 14px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; }
+  hr { border: 0; border-top: 1px solid var(--line); margin: 48px 0; }
+  a { color: var(--accent); }
+</style>
+</head>
+<body>
+<main>
+
+<h1>Deekda 지원</h1>
+<p class="meta">Apple Watch에서 PC 상태를 보여 주는 보조 대시보드</p>
+
+<h2>시작하기</h2>
+<ol>
+  <li>PC에 <strong>Deekda Agent</strong>를 설치하고 실행합니다. (macOS Apple Silicon 또는 Windows)
+    <div class="card">다운로드: 준비 중 — 곧 이 페이지에서 받을 수 있습니다.</div></li>
+  <li>Agent 창에 나온 <strong>6자리 코드</strong>를 확인합니다. (macOS는 메뉴 막대의 Deekda 아이콘)</li>
+  <li>워치에서 Deekda를 열고 코드를 입력하면 연결됩니다. 이후에는 자동으로 다시 연결됩니다.</li>
+</ol>
+<p>PC 없이 먼저 둘러보려면 페어링 화면 왼쪽 아래의 <strong>데모</strong> 키를 누르세요.</p>
+
+<h2>자주 묻는 질문</h2>
+<p><strong>연결이 안 돼요.</strong><br>
+PC와 워치의 Bluetooth가 켜져 있는지, Agent가 실행 중인지 확인하세요. 워치와 PC는 Bluetooth가 닿는 거리(보통 같은 방)에 있어야 합니다.</p>
+<p><strong>날씨가 비어 있어요.</strong><br>
+PC에서 Agent의 위치 사용을 허용해야 합니다. macOS는 시스템 설정 → 개인정보 보호 및 보안 → 위치 서비스에서 허용합니다.</p>
+<p><strong>온도나 팬이 안 보여요.</strong><br>
+macOS는 <code>macmon</code>(Homebrew: <code>brew install macmon</code>)이 필요합니다. 팬이 없는 Mac(MacBook Air 등)은 팬 항목이 표시되지 않습니다.</p>
+<p><strong>다른 PC로 바꾸고 싶어요.</strong><br>
+워치의 캐릭터 화면 → ⚙ → "새 PC 연결"을 누른 뒤 새 PC의 코드를 입력하세요.</p>
+
+<h2>문의</h2>
+<p>arto135@naver.com</p>
+<p><a href="privacy.html">개인정보 처리방침</a></p>
+
+<hr>
+
+<h1>Deekda Support</h1>
+<p class="meta">A companion status display for your PC on Apple Watch</p>
+
+<h2>Getting started</h2>
+<ol>
+  <li>Install and run <strong>Deekda Agent</strong> on your PC (macOS on Apple Silicon, or Windows).
+    <div class="card">Download: coming soon to this page.</div></li>
+  <li>Find the <strong>6-digit code</strong> in the Agent window (on macOS, click the Deekda icon in the menu bar).</li>
+  <li>Open Deekda on your watch and enter the code. It reconnects automatically after that.</li>
+</ol>
+<p>Want to look around first without a PC? Tap <strong>Demo</strong> at the bottom left of the pairing screen.</p>
+
+<h2>FAQ</h2>
+<p><strong>It won't connect.</strong><br>
+Make sure Bluetooth is on for both your PC and watch and that the Agent is running. The watch must be within Bluetooth range of the PC (usually the same room).</p>
+<p><strong>Weather is empty.</strong><br>
+Allow the Agent to use location on your PC. On macOS: System Settings → Privacy &amp; Security → Location Services.</p>
+<p><strong>Temperatures or fan speed are missing.</strong><br>
+On macOS the Agent needs <code>macmon</code> (Homebrew: <code>brew install macmon</code>). Fanless Macs such as MacBook Air show no fan reading.</p>
+<p><strong>I want to switch to another PC.</strong><br>
+On the watch, open the Character page → ⚙ → "Connect a new PC", then enter the new PC's code.</p>
+
+<h2>Contact</h2>
+<p>arto135@naver.com</p>
+<p><a href="privacy.html">Privacy Policy</a></p>
+
+</main>
+</body>
+</html>

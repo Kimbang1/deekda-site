@@ -29,24 +29,22 @@ export function Section({ tone = "base", className = "", children, id }: { tone?
   );
 }
 
-// Dense "everything at once" PC dashboard used on the home page (the opposite of the watch's few numbers).
-export function MonitorTiles({ cols = 4 }: { cols?: number }) {
-  const colors = ["#22D3EE", "#A78BFA", "#FB923C"];
-  const width = 16 + cols * 96;
-  const tiles = Array.from({ length: cols * 3 }, (_, i) => ({ r: Math.floor(i / cols), k: i % cols }));
+// A plain desktop: the PC screen keeps showing whatever you are working on (Deekda never replaces it).
+export function MonitorDesktop() {
+  const bar = (x: number, y: number, w: number, c: string) => <rect x={x} y={y} width={w} height={5} rx={2.5} fill={c} />;
   return (
-    <svg viewBox={`0 0 ${width} 240`} preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-      <rect width={width} height="240" fill="#070A12" />
-      {tiles.map(({ r, k }) => {
-        const x = 16 + k * 96, y = 16 + r * 72;
-        return (
-          <g key={`${r}-${k}`}>
-            <rect x={x} y={y} width={88} height={64} rx={4} fill="#131A2C" />
-            <rect x={x + 8} y={y + 8} width={26} height={4} rx={2} fill="#33415F" />
-            <rect x={x + 8} y={y + 52} width={(88 - 16) * (0.3 + ((r * 4 + k * 7) % 6) / 9)} height={4} rx={2} fill={colors[(r + k) % 3]} opacity={0.8} />
-          </g>
-        );
-      })}
+    <svg viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <rect width="400" height="240" fill="#0A0F1C" />
+      <rect x="20" y="20" width="236" height="170" rx="8" fill="#131A2C" stroke="#243049" />
+      <rect x="20" y="20" width="236" height="22" rx="8" fill="#1A2338" />
+      {[0, 1, 2].map((i) => <circle key={i} cx={34 + i * 14} cy={31} r={3.5} fill="#33415F" />)}
+      {bar(36, 62, 70, "#A78BFA")}{bar(36, 78, 150, "#33415F")}{bar(52, 94, 110, "#33415F")}
+      {bar(52, 110, 170, "#33415F")}{bar(36, 126, 60, "#22D3EE")}{bar(52, 142, 130, "#33415F")}{bar(36, 158, 90, "#33415F")}
+      <rect x="272" y="44" width="108" height="100" rx="8" fill="#131A2C" stroke="#243049" />
+      <rect x="272" y="44" width="108" height="20" rx="8" fill="#1A2338" />
+      {bar(284, 80, 60, "#33415F")}{bar(284, 96, 84, "#33415F")}{bar(284, 112, 48, "#FB923C")}
+      <rect x="0" y="216" width="400" height="24" fill="#10172A" />
+      {[0, 1, 2, 3].map((i) => <rect key={i} x={16 + i * 28} y={222} width={16} height={12} rx={3} fill="#243049" />)}
     </svg>
   );
 }

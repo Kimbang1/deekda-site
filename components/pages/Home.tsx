@@ -1,10 +1,8 @@
 import { COPY } from "@/lib/content";
 import { RELEASES, asset, type Lang } from "@/lib/site";
 import { Footer, Header } from "../Chrome";
-import { Badge, ButtonLink, MonitorTiles, Section } from "../ui";
+import { Badge, ButtonLink, MonitorDesktop, Section } from "../ui";
 import { GuardianTile, Watch } from "../Watch";
-
-const PHOTOS = { system: "/images/watch-system.jpg", weather: "/images/watch-weather.jpg", character: "/images/watch-character.jpg" } as const;
 
 function Hero({ lang }: { lang: Lang }) {
   const t = COPY[lang];
@@ -25,7 +23,7 @@ function Hero({ lang }: { lang: Lang }) {
         </div>
         <div className="scene" aria-hidden="true">
           <div className="scene-monitor">
-            <div className="scene-screen"><MonitorTiles /></div>
+            <div className="scene-screen"><MonitorDesktop /></div>
             <i className="scene-neck" />
             <i className="scene-base" />
           </div>
@@ -51,12 +49,12 @@ function Mirror({ lang }: { lang: Lang }) {
       <p className="lead muted measure">{t.mirror.body}</p>
       <div className="mirror-grid">
         <figure className="card mirror-pc">
-          <div className="mirror-screen"><MonitorTiles cols={7} /></div>
+          <div className="mirror-screen"><MonitorDesktop /></div>
           <figcaption className="small muted">{t.mirror.pc}</figcaption>
         </figure>
-        <figure className="photo-card mirror-watch">
-          <img src={asset(PHOTOS.system)} width={640} height={853} alt={t.alt.system} loading="lazy" />
-          <figcaption className="small">{t.mirror.watch}</figcaption>
+        <figure className="card mirror-watch">
+          <Watch kind="system" theme="neon" online={t.scene.online} label={t.alt.system} />
+          <figcaption className="small muted">{t.mirror.watch}</figcaption>
         </figure>
       </div>
     </Section>
@@ -72,7 +70,9 @@ function Pages({ lang }: { lang: Lang }) {
       <div className="pages-grid">
         {t.pages.items.map((item) => (
           <figure key={item.key} className="page-item">
-            <img src={asset(PHOTOS[item.key])} width={640} height={853} alt={t.alt[item.key]} loading="lazy" />
+            <div className="stage">
+              <Watch kind={item.key} theme="neon" online={t.scene.online} label={t.alt[item.key]} />
+            </div>
             <figcaption>
               <h3>{item.title}</h3>
               <p className="muted">{item.body}</p>

@@ -4,14 +4,14 @@ import type { CSSProperties } from "react";
 // Coordinates come from the measured watchOS app (and CharacterGeometry.swift for the Guardian Robot face).
 
 export type WatchTheme = "modern" | "matrix" | "neon";
-export type WatchKind = "system" | "character";
+export type WatchKind = "system" | "weather" | "character";
 
-type Palette = { bg: string; track: string; a: string; b: string; c: string; text: string; muted: string; live: string; eye: string; mono: boolean };
+type Palette = { bg: string; surface2: string; track: string; a: string; b: string; c: string; text: string; muted: string; live: string; eye: string; mono: boolean };
 
 const THEMES: Record<WatchTheme, Palette> = {
-  modern: { bg: "#0B0F14", track: "#26323A", a: "#4FC3F7", b: "#AB6BFF", c: "#FFB74D", text: "#F3FAFC", muted: "#8AA1AB", live: "#33D9E8", eye: "#E8F2F5", mono: false },
-  matrix: { bg: "#080A08", track: "#203526", a: "#72DD8B", b: "#F2C879", c: "#C5E7BD", text: "#C5E7BD", muted: "#719078", live: "#72DD8B", eye: "#72DD8B", mono: true },
-  neon: { bg: "#05070D", track: "#1C2540", a: "#22D3EE", b: "#A78BFA", c: "#FB923C", text: "#E8ECF4", muted: "#9AA6BD", live: "#22D3EE", eye: "#22D3EE", mono: false },
+  modern: { bg: "#0B0F14", surface2: "#1B2630", track: "#26323A", a: "#4FC3F7", b: "#AB6BFF", c: "#FFB74D", text: "#F3FAFC", muted: "#8AA1AB", live: "#33D9E8", eye: "#E8F2F5", mono: false },
+  matrix: { bg: "#080A08", surface2: "#132117", track: "#203526", a: "#72DD8B", b: "#F2C879", c: "#C5E7BD", text: "#C5E7BD", muted: "#719078", live: "#72DD8B", eye: "#72DD8B", mono: true },
+  neon: { bg: "#05070D", surface2: "#1A2338", track: "#1C2540", a: "#22D3EE", b: "#A78BFA", c: "#FB923C", text: "#E8ECF4", muted: "#9AA6BD", live: "#22D3EE", eye: "#22D3EE", mono: false },
 };
 
 const glow = (color: string, radius: number): CSSProperties => ({ filter: `drop-shadow(0 0 ${radius}px ${color}99)` });
@@ -68,6 +68,53 @@ function SystemScreen({ p, online }: { p: Palette; online: string }) {
   );
 }
 
+
+function MetricChip({ p, x, label, value, selected, accent }: { p: Palette; x: number; label: string; value: string; selected?: boolean; accent: string }) {
+  const w = 43.5;
+  return (
+    <>
+      {selected ? <rect x={x} y={120.5} width={w} height={31} rx={5} fill={p.surface2} /> : null}
+      <text x={x + w / 2} y={127} className="wsans" fontSize={6.5} fill={selected ? p.text : p.muted} textAnchor="middle" dominantBaseline="central">{label}</text>
+      <text x={x + w / 2} y={137.5} className="wsans" fontSize={9} fontWeight={selected ? 600 : 400} fill={selected ? p.text : p.muted} textAnchor="middle" dominantBaseline="central">{value}</text>
+      {selected ? <rect x={x + 4} y={145} width={w - 8} height={2} rx={1} fill={accent} /> : null}
+    </>
+  );
+}
+
+const HOURS = [23, 25, 26, 26, 24];
+
+function WeatherScreen({ p }: { p: Palette }) {
+  const gx = 7.5, gy = 155, gw = 182.5, gh = 32;
+  const lo = Math.min(...HOURS), hi = Math.max(...HOURS);
+  const pts = HOURS.map((v, i) => [gx + (gw * i) / (HOURS.length - 1), gy + gh * (1 - (v - lo) / (hi - lo))]);
+  const line = pts.map((q, i) => `${i === 0 ? "M" : "L"} ${q[0].toFixed(2)} ${q[1].toFixed(2)}`).join(" ");
+  const col = gw / HOURS.length;
+  return (
+    <>
+      <text x={184} y={17} className="wsans" fontSize={18} fontWeight={600} fill={p.text} textAnchor="end" dominantBaseline="central">10:34</text>
+      {[56.5, 65, 73.5].map((y, i) => <circle key={y} cx={191.5} cy={y} r={2.75} fill={i === 1 ? p.text : p.muted} />)}
+      <Gauge p={p} cx={41} cy={77} size={49} label="HUMIDITY" value="58%" fraction={0.58} color={p.a} />
+      <text x={79} y={58} className="wsans" fontSize={8} fill={p.text} dominantBaseline="central">SEOUL</text>
+      <text x={79} y={82} className="wsans" fontSize={27} fontWeight={600} fill={p.text} dominantBaseline="central">25°</text>
+      <rect x={124} y={64.5} width={44} height={12} rx={6} fill={p.bg} stroke={p.track} strokeWidth={0.8} />
+      <text x={146} y={70.5} className="wsans" fontSize={6} fontWeight={600} fill={p.muted} textAnchor="middle" dominantBaseline="central">Open-Meteo</text>
+      <text x={79} y={102} className="wsans" fontSize={9} fontWeight={600} fill={p.live} dominantBaseline="central">CLEAR</text>
+      <text x={79} y={111.5} className="wsans" fontSize={8} fill={p.muted} dominantBaseline="central">Feels like 26°</text>
+      <MetricChip p={p} x={8.5} label="HUMIDITY" value="58%" selected accent={p.a} />
+      <MetricChip p={p} x={54} label="CLOUD" value="12%" accent={p.muted} />
+      <MetricChip p={p} x={99.5} label="RAIN" value="0.0 mm" accent={p.a} />
+      <MetricChip p={p} x={145} label="UV" value="5" accent={p.c} />
+      <path d={line} fill="none" stroke={p.a} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+      {HOURS.map((v, i) => (
+        <g key={i}>
+          <text x={gx + i * col + col / 2} y={193} className="wsans" fontSize={7} fill={p.muted} textAnchor="middle" dominantBaseline="central">{["21", "22", "23", "00", "01"][i]}</text>
+          <text x={gx + i * col + col / 2} y={202} className="wsans" fontSize={7} fill={p.muted} textAnchor="middle" dominantBaseline="central">{v}°</text>
+        </g>
+      ))}
+    </>
+  );
+}
+
 // Guardian Robot, faceShapes(.ordinary): two ovals (rx 9, ry 12.5) at x 68 / 112 (y 74) and a smile (74,99) - (90,111) - (106,99), stroke 6.
 const UNIT = 0.85;
 
@@ -101,7 +148,7 @@ export function Watch({ kind, theme = "neon", online = "Online", label, classNam
       <rect x={0.5} y={0.5} width={99} height={119} rx={28} fill="#05070D" stroke="#2A3550" />
       <rect x={6} y={6} width={88} height={108} rx={22} fill={p.bg} />
       <svg x={6} y={6} width={88} height={108} viewBox="0 0 198 242">
-        {kind === "system" ? <SystemScreen p={p} online={online} /> : <CharacterScreen p={p} />}
+        {kind === "system" ? <SystemScreen p={p} online={online} /> : kind === "weather" ? <WeatherScreen p={p} /> : <CharacterScreen p={p} />}
       </svg>
     </svg>
   );

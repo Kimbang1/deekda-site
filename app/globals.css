@@ -177,23 +177,24 @@ h2 + .lead, h1 + .lead { margin-top: 16px; }
 /* mirror */
 .mirror-grid { display: grid; gap: 16px; margin-top: 48px; }
 .mirror-pc { display: grid; gap: 16px; align-content: space-between; }
-.mirror-screen { border: 1px solid var(--line2); border-radius: 8px; overflow: hidden; aspect-ratio: 688 / 240; }
+.mirror-screen { border: 1px solid var(--line2); border-radius: 8px; overflow: hidden; aspect-ratio: 400 / 240; width: min(100%, 440px); margin-inline: auto; }
 .mirror-screen svg { width: 100%; height: 100%; }
-.photo-card, .mirror-watch { position: relative; overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius-card); background: var(--surface); min-height: 232px; }
-.mirror-watch img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 58%; }
-.mirror-watch figcaption { position: absolute; inset: auto 0 0; padding: 16px 24px; background: color-mix(in srgb, var(--bg) 82%, transparent); }
+.mirror-watch { display: grid; gap: 16px; justify-items: center; align-content: space-between; text-align: center; }
+.mirror-watch svg { width: 120px; height: auto; }
 @media (min-width: 900px) {
   .mirror-grid { grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px; }
   .mirror-pc { grid-column: span 8; min-height: 360px; padding: 24px; }
-  .mirror-watch { grid-column: span 4; min-height: 360px; }
+  .mirror-watch { grid-column: span 4; min-height: 360px; padding: 24px; }
+  .mirror-watch svg { width: 192px; }
 }
 
 /* three pages */
 .pages-grid { display: grid; gap: 48px; margin-top: 48px; }
-.page-item img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; object-position: 50% 85%; border-radius: var(--radius-card); border: 1px solid var(--line); }
+.stage { display: grid; place-items: center; padding: 32px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-card); }
+.stage svg { width: 160px; height: auto; }
 .page-item figcaption { margin-top: 24px; }
 .page-item h3 + p { margin-top: 8px; }
-@media (min-width: 900px) { .pages-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; } .page-item img { aspect-ratio: 4 / 5; } }
+@media (min-width: 900px) { .pages-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; } .stage svg { width: 224px; } }
 
 /* themes */
 .themes-grid { display: grid; gap: 48px; }

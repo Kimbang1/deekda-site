@@ -1,5 +1,5 @@
 import { COPY } from "@/lib/content";
-import { CONTACT_EMAIL, asset, type Lang } from "@/lib/site";
+import { CONTACT_EMAIL, type Lang } from "@/lib/site";
 import { Footer, Header } from "../Chrome";
 import { Section } from "../ui";
 
@@ -18,7 +18,6 @@ export function SupportPage({ lang }: { lang: Lang }) {
             <div>
               <h2>{t.stepsTitle}</h2>
               <p className="lead muted">{t.stepsBody}</p>
-              <img className="shot" src={asset("/images/desktop-pairing.png")} width={900} height={735} alt={t.pairingAlt} loading="lazy" />
             </div>
             <div>
               <ol className="rows numbered">

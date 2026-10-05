@@ -34,7 +34,6 @@ export type Copy = {
     faq: Faq[];
     contactTitle: string;
     contactBody: string;
-    pairingAlt: string;
   };
   privacy: { title: string; toc: string; tabs: [string, string]; tabLabel: string };
   alt: { system: string; weather: string; character: string; pixel: string };
@@ -54,9 +53,9 @@ const ko: Copy = {
   },
   mirror: {
     title: "미러링이 아닙니다",
-    body: "PC 화면을 그대로 줄여 보여 주지 않아요. 지금 필요한 숫자만 골라 워치 크기에 맞게 다시 그립니다.",
-    pc: "PC 화면 — 모든 지표를 한꺼번에",
-    watch: "워치 — 지금 필요한 것만",
+    body: "PC 화면을 그대로 줄여 보여 주지 않아요. CPU·GPU·RAM·온도처럼 지금 필요한 수치만 골라 워치 크기에 맞게 다시 그립니다.",
+    pc: "PC — 평소 쓰는 화면은 그대로",
+    watch: "워치 — 상태 수치만 다시 구성",
   },
   pages: {
     title: "System · Weather · Character",
@@ -146,7 +145,6 @@ const ko: Copy = {
     ],
     contactTitle: "찾는 답이 없나요?",
     contactBody: "메일로 알려 주세요. 증상과 PC·워치 기종을 함께 적어 주시면 더 빨리 도와드릴 수 있어요.",
-    pairingAlt: "Deekda Agent 창에 6자리 페어링 코드가 표시된 화면",
   },
   privacy: { title: "개인정보처리방침", toc: "목차", tabs: ["한국어", "English"], tabLabel: "언어" },
   alt: {
@@ -171,9 +169,9 @@ const en: Copy = {
   },
   mirror: {
     title: "This is not mirroring",
-    body: "We do not shrink your PC screen. We pick the numbers you need right now and redraw them for a watch.",
-    pc: "PC screen: every metric at once",
-    watch: "Watch: only what you need now",
+    body: "We do not shrink your PC screen. We pick the status numbers you need right now, such as CPU, GPU, RAM and temperatures, and redraw them for a watch.",
+    pc: "PC: your usual screen stays as it is",
+    watch: "Watch: just the status numbers, redrawn",
   },
   pages: {
     title: "System · Weather · Character",
@@ -263,7 +261,6 @@ const en: Copy = {
     ],
     contactTitle: "Did not find your answer?",
     contactBody: "Email us with what happens and which PC and watch you use, and we can help faster.",
-    pairingAlt: "The Deekda Agent window showing a 6-digit pairing code",
   },
   privacy: { title: "Privacy Policy", toc: "Contents", tabs: ["한국어", "English"], tabLabel: "Language" },
   alt: {

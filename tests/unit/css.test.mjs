@@ -53,6 +53,18 @@ test("hero: rings cannot cause horizontal scroll (clip, not hidden) and respect 
   assert.match(css, /@media \(prefers-reduced-motion: reduce\)\s*\{[^}]*\.pulse-ring\s*\{[^}]*animation:\s*none/s);
 });
 
+test("hero: the grid column can shrink below the scene (no overflow cut by clip) and two columns start at 1100px", () => {
+  assert.match(css, /\.hero-grid\s*\{[^}]*grid-template-columns:\s*minmax\(0, 1fr\)/s);
+  assert.match(css, /\.scene-monitor\s*\{[^}]*flex:\s*1 1 0[^}]*min-width:\s*0[^}]*max-width:\s*var\(--mw\)/s);
+  assert.match(css, /@media \(min-width: 1100px\)\s*\{\s*\.hero-grid\s*\{[^}]*grid-template-columns:\s*minmax\(0, 1fr\) minmax\(0, 1\.1fr\)/s);
+  // the old 900px two-column rule (which squeezed the copy to ~60px) is gone
+  assert.doesNotMatch(css, /@media \(min-width: 900px\)\s*\{\s*\.hero-grid\s*\{[^}]*minmax\(0, 560px\)/s);
+});
+
+test("reveal items stay visible when printed", () => {
+  assert.match(css, /@media print\s*\{[^}]*\.js \.reveal\s*\{[^}]*opacity:\s*1/s);
+});
+
 test("story: sticky stage on desktop only, blur crossfade, no sticky-breaking overflow on its sections", () => {
   assert.match(css, /\.story-stage\s*\{[^}]*position:\s*sticky/s);
   assert.match(css, /\.story-screen\s*\{[^}]*filter:\s*blur\(2px\)[^}]*transition:[^}]*200ms/s);

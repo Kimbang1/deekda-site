@@ -87,6 +87,7 @@ main, .site-footer { position: relative; z-index: 1; }
 .js .reveal { opacity: 0; transform: translateY(8px); transition: opacity 300ms var(--ease-out), transform 300ms var(--ease-out); transition-delay: calc(var(--i, 0) * 50ms); }
 .js .reveal.in { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) { .js .reveal { transform: none; } }
+@media print { .js .reveal { opacity: 1; transform: none; transition: none; } }
 .header-row { display: flex; align-items: center; height: 72px; gap: 24px; }
 .logo { display: inline-flex; align-items: center; gap: 8px; color: var(--text); text-decoration: none; font-size: 20px; line-height: 28px; font-weight: 700; }
 .logo img { border-radius: 8px; border: 1px solid var(--line2); }
@@ -164,16 +165,16 @@ main, .site-footer { position: relative; z-index: 1; }
 
 /* hero */
 .hero { position: relative; overflow-x: clip; }
-.hero-grid { display: grid; gap: 32px; padding-top: 48px; }
+.hero-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 32px; padding-top: 48px; }
 .hero-copy { display: grid; gap: 24px; align-content: start; padding-bottom: 0; }
 .hero-copy .badges { display: flex; flex-wrap: wrap; gap: 8px; }
 .scene { --mw: 232px; --ww: 120px; display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 0; }
-.scene-monitor { width: var(--mw); }
+.scene-monitor { flex: 1 1 0; min-width: 0; max-width: var(--mw); }
 .scene-screen { aspect-ratio: 16 / 10; padding: 8px; background: #10172a; border: 1px solid var(--line2); border-radius: 8px; }
 .scene-screen svg { width: 100%; height: 100%; border-radius: 4px; }
 .scene-neck { display: block; position: relative; width: 24px; height: 24px; margin-inline: auto; background: var(--surface2); }
 .scene-base { display: block; width: 96px; height: 8px; margin: -8px auto 0; border-radius: 4px; background: var(--surface2); position: relative; }
-.scene-watch { display: flex; flex-direction: column; align-items: center; width: var(--ww); }
+.scene-watch { display: flex; flex: none; flex-direction: column; align-items: center; width: var(--ww); }
 .scene-watch svg { width: var(--ww); height: auto; }
 .stand-post { display: block; width: 8px; height: 16px; background: var(--surface2); }
 .stand-base { display: block; width: 64px; height: 8px; margin-top: -8px; border-radius: 4px; background: var(--surface2); position: relative; }
@@ -184,17 +185,25 @@ main, .site-footer { position: relative; z-index: 1; }
 @keyframes pulse { 0% { transform: scale(0.5); opacity: 0; } 10% { opacity: 0.8; } 45%, 100% { transform: scale(1.7); opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { .pulse-ring { animation: none; } }
 .desk { background: var(--bg2); border-top: 1px solid var(--line); height: 64px; padding-top: 16px; }
+@media (min-width: 600px) {
+  .scene { --mw: 360px; --ww: 168px; justify-content: flex-start; }
+}
 @media (min-width: 900px) {
-  .hero-grid { grid-template-columns: minmax(0, 560px) 1fr; padding-top: 96px; gap: 24px; align-items: end; }
-  .hero-copy { padding-bottom: 24px; align-self: start; }
+  .hero-grid { padding-top: 96px; }
   .hero-copy .lead { max-width: 480px; }
-  .scene { --mw: 432px; --ww: 208px; justify-self: end; gap: 24px; justify-content: flex-start; align-self: end; }
+  .scene { --mw: 432px; --ww: 208px; }
   .scene-neck { height: 40px; width: 24px; }
   .scene-base { width: 144px; }
   .stand-post { height: 24px; }
   .stand-base { width: 96px; }
   .scene-screen { border-radius: 16px; }
   .desk { height: 96px; padding-top: 32px; }
+}
+/* two columns only when there is room: the copy never gets squeezed below ~420px, the scene scales to the rest */
+@media (min-width: 1100px) {
+  .hero-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 24px; align-items: end; }
+  .hero-copy { padding-bottom: 24px; align-self: start; }
+  .scene { --ww: clamp(168px, 14.5vw, 208px); justify-self: end; align-self: end; }
 }
 
 /* mirror */

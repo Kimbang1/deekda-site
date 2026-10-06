@@ -43,6 +43,12 @@ export function reactionAt(dot: Dot, pointer: Pointer | null, reach: number = DO
   return { strength, dx: (vx / dist) * push * strength, dy: (vy / dist) * push * strength };
 }
 
+// Idle dots keep a faint hint of the accent: a theme change then shows on touch and with reduced motion too.
+export const IDLE_TINT = 0.2;
+export function idleColor(accent: Rgb): Rgb {
+  return mixRgb(parseHex(IDLE_HEX) as Rgb, accent, IDLE_TINT);
+}
+
 export const dotRadius = (strength: number): number => DOT.radius * (1 + strength);
 export const dotAlpha = (strength: number): number => ALPHA.idle + (ALPHA.max - ALPHA.idle) * strength;
 

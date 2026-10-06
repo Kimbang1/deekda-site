@@ -37,3 +37,10 @@ test("RootShell sets the js class before paint and mounts RevealObserver", () =>
   assert.match(src, /classList\.add\("js"\)/);
   assert.match(src, /<RevealObserver/);
 });
+
+test("reveal fail-safe lives in the inline script, so a failed JS bundle cannot leave content hidden", () => {
+  const shell = read("components/RootShell.tsx");
+  assert.match(shell, /__revealFallback\s*=\s*setTimeout/);
+  assert.match(shell, /classList\.remove\("js"\)/);
+  assert.match(read("components/RevealObserver.tsx"), /clearTimeout\(window\.__revealFallback\)/);
+});

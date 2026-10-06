@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import {
-  ACCENT, ACCENT_EVENT, ALPHA, DOT, IDLE_HEX, buildGrid, dotAlpha, dotRadius, mixRgb, parseHex, reactionAt, reactionEnabled, rgba,
+  ACCENT, ACCENT_EVENT, ALPHA, DOT, IDLE_HEX, buildGrid, dotAlpha, dotRadius, idleColor, mixRgb, parseHex, reactionAt, reactionEnabled, rgba,
   type Pointer, type Rgb,
 } from "@/lib/dotfield";
 
@@ -41,7 +41,8 @@ export function DotField() {
 
     const draw = () => {
       ctx.clearRect(0, 0, width, height);
-      ctx.fillStyle = rgba(idle, ALPHA.idle);
+      const accentNow = mixRgb(accentFrom, accentTo, accent.t);
+      ctx.fillStyle = rgba(idleColor(accentNow), ALPHA.idle);
       ctx.beginPath();
       for (const c of cells) {
         if (c.s > 0.001) continue;
@@ -49,7 +50,6 @@ export function DotField() {
         ctx.arc(c.cx, c.cy, DOT.radius, 0, TAU);
       }
       ctx.fill();
-      const accentNow = mixRgb(accentFrom, accentTo, accent.t);
       for (const c of cells) {
         if (c.s <= 0.001) continue;
         ctx.fillStyle = rgba(mixRgb(idle, accentNow, c.s), dotAlpha(c.s));

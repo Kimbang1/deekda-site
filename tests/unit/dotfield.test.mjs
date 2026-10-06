@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import {
-  ACCENT, ACCENT_EVENT, ALPHA, DOT, buildGrid, dotAlpha, dotRadius, gridSpacingFor, mixRgb, parseHex, reactionAt, reactionEnabled, rgba,
+  ACCENT, ACCENT_EVENT, ALPHA, DOT, IDLE_HEX, IDLE_TINT, buildGrid, idleColor, dotAlpha, dotRadius, gridSpacingFor, mixRgb, parseHex, reactionAt, reactionEnabled, rgba,
 } from "../../lib/dotfield.ts";
 
 test("buildGrid: 240x120 at 24px is a 10x5 grid centered in its cells", () => {
@@ -69,6 +69,14 @@ test("reactionEnabled: only hover + fine pointer + no reduced motion", () => {
   assert.equal(reactionEnabled({ hover: false, finePointer: true, reducedMotion: false }), false);
   assert.equal(reactionEnabled({ hover: true, finePointer: false, reducedMotion: false }), false);
   assert.equal(reactionEnabled({ hover: true, finePointer: true, reducedMotion: true }), false);
+});
+
+test("idleColor: idle dots carry a faint hint of the accent, so a theme change shows even without a mouse", () => {
+  const idle = parseHex(IDLE_HEX);
+  assert.deepEqual(idleColor(idle), idle);
+  assert.notDeepEqual(idleColor(parseHex(ACCENT.neon)), idleColor(parseHex(ACCENT.matrix)));
+  assert.ok(IDLE_TINT > 0 && IDLE_TINT <= 0.25);
+  assert.deepEqual(parseHex(IDLE_HEX), idle);
 });
 
 test("ACCENT: three themes with valid hex values and a stable event name", () => {

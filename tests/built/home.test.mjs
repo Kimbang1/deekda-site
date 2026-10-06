@@ -35,6 +35,17 @@ for (const [lang, file] of [["ko", "index.html"], ["en", "en/index.html"]]) {
   });
 }
 
+for (const [lang, file] of [["ko", "index.html"], ["en", "en/index.html"]]) {
+  test(`${lang}: theme switcher is a three-option radio group`, () => {
+    const html = read(file);
+    assert.equal(count(html, /type="radio"/g), 3);
+    assert.ok(html.includes('role="radiogroup"'));
+  });
+  test(`${lang}: steps and trust rows reveal on scroll`, () => {
+    assert.ok(count(read(file), /class="reveal"/g) >= 6);
+  });
+}
+
 test("ko/en: the mirror caption says the PC shows every metric at once", () => {
   assert.ok(read("index.html").includes("모든 지표"));
   assert.ok(read("en/index.html").toLowerCase().includes("every metric"));

@@ -10,7 +10,7 @@ export type Copy = {
   hero: { title: string[]; lead: string; windows: string; mac: string; badgeStore: string; badgeGalaxy: string; caption: string };
   mirror: { title: string; body: string; pc: string; watch: string };
   pages: { title: string; body: string; items: { key: "system" | "weather" | "character"; title: string; body: string }[] };
-  themes: { title: string; body: string; guardian: string; pixel: string; names: [string, string, string] };
+  themes: { title: string; body: string; group: string; guardian: string; pixel: string; names: [string, string, string] };
   steps: { title: string; body: string; items: Step[] };
   trust: { title: string; body: string; items: Pair[] };
   env: { title: string; rows: [string, string][] };
@@ -69,6 +69,7 @@ const ko: Copy = {
   themes: {
     title: "책상 분위기에 맞게",
     body: "테마 3종, 캐릭터 2종. 설정에서 바로 바꿀 수 있어요.",
+    group: "테마 선택",
     guardian: "Guardian Robot",
     pixel: "Pixel Face",
     names: ["Modern", "Matrix", "Nightwatch Neon"],
@@ -185,6 +186,7 @@ const en: Copy = {
   themes: {
     title: "Match your desk",
     body: "Three themes and two characters. Switch them right in Settings.",
+    group: "Choose a theme",
     guardian: "Guardian Robot",
     pixel: "Pixel Face",
     names: ["Modern", "Matrix", "Nightwatch Neon"],

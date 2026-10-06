@@ -10,7 +10,7 @@ export type Copy = {
   hero: { title: string[]; lead: string; windows: string; mac: string; badgeStore: string; badgeGalaxy: string; caption: string };
   mirror: { title: string; body: string; pc: string; watch: string };
   pages: { title: string; body: string; items: { key: "system" | "weather" | "character"; title: string; body: string }[] };
-  themes: { title: string; body: string; guardian: string; pixel: string; names: [string, string, string] };
+  themes: { title: string; body: string; group: string; guardian: string; pixel: string; names: [string, string, string] };
   steps: { title: string; body: string; items: Step[] };
   trust: { title: string; body: string; items: Pair[] };
   env: { title: string; rows: [string, string][] };
@@ -54,7 +54,7 @@ const ko: Copy = {
   mirror: {
     title: "미러링이 아닙니다",
     body: "PC 화면을 그대로 줄여 보여 주지 않아요. CPU·GPU·RAM·온도처럼 지금 필요한 수치만 골라 워치 크기에 맞게 다시 그립니다.",
-    pc: "PC — 평소 쓰는 화면은 그대로",
+    pc: "PC — 모든 지표가 한꺼번에",
     watch: "워치 — 상태 수치만 다시 구성",
   },
   pages: {
@@ -69,6 +69,7 @@ const ko: Copy = {
   themes: {
     title: "책상 분위기에 맞게",
     body: "테마 3종, 캐릭터 2종. 설정에서 바로 바꿀 수 있어요.",
+    group: "테마 선택",
     guardian: "Guardian Robot",
     pixel: "Pixel Face",
     names: ["Modern", "Matrix", "Nightwatch Neon"],
@@ -170,7 +171,7 @@ const en: Copy = {
   mirror: {
     title: "This is not mirroring",
     body: "We do not shrink your PC screen. We pick the status numbers you need right now, such as CPU, GPU, RAM and temperatures, and redraw them for a watch.",
-    pc: "PC: your usual screen stays as it is",
+    pc: "PC: every metric at once",
     watch: "Watch: just the status numbers, redrawn",
   },
   pages: {
@@ -185,6 +186,7 @@ const en: Copy = {
   themes: {
     title: "Match your desk",
     body: "Three themes and two characters. Switch them right in Settings.",
+    group: "Choose a theme",
     guardian: "Guardian Robot",
     pixel: "Pixel Face",
     names: ["Modern", "Matrix", "Nightwatch Neon"],

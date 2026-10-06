@@ -1,7 +1,12 @@
+import type { CSSProperties } from "react";
 import { COPY } from "@/lib/content";
 import { RELEASES, asset, type Lang } from "@/lib/site";
 import { Footer, Header } from "../Chrome";
-import { Badge, ButtonLink, MonitorDesktop, Section } from "../ui";
+import { PagesStory } from "../PagesStory";
+import { ThemeShowcase } from "../ThemeShowcase";
+import { PcScreen } from "../PcScreen";
+import { Tilt } from "../Tilt";
+import { Badge, ButtonLink, Section } from "../ui";
 import { GuardianTile, Watch } from "../Watch";
 
 function Hero({ lang }: { lang: Lang }) {
@@ -21,18 +26,20 @@ function Hero({ lang }: { lang: Lang }) {
             <Badge tone="violet">{t.hero.badgeGalaxy}</Badge>
           </div>
         </div>
-        <div className="scene" aria-hidden="true">
+        <Tilt className="scene">
           <div className="scene-monitor">
-            <div className="scene-screen"><MonitorDesktop /></div>
+            <div className="scene-screen"><PcScreen mode="bars" /></div>
             <i className="scene-neck" />
             <i className="scene-base" />
           </div>
           <div className="scene-watch">
+            <i className="hero-glow" />
+            {[0, 1, 2].map((n) => <i key={n} className="pulse-ring" style={{ "--n": n } as CSSProperties} />)}
             <Watch kind="character" theme="neon" />
             <i className="stand-post" />
             <i className="stand-base" />
           </div>
-        </div>
+        </Tilt>
       </div>
       <div className="desk">
         <div className="wrap"><p className="small muted">{t.hero.caption}</p></div>
@@ -49,7 +56,10 @@ function Mirror({ lang }: { lang: Lang }) {
       <p className="lead muted measure">{t.mirror.body}</p>
       <div className="mirror-grid">
         <figure className="card mirror-pc">
-          <div className="mirror-screen"><MonitorDesktop /></div>
+          <div className="mirror-screen">
+            <PcScreen mode="full" className="pc-full" />
+            <PcScreen mode="compact" className="pc-compact" />
+          </div>
           <figcaption className="small muted">{t.mirror.pc}</figcaption>
         </figure>
         <figure className="card mirror-watch">
@@ -67,26 +77,13 @@ function Pages({ lang }: { lang: Lang }) {
     <Section tone="alt">
       <h2>{t.pages.title}</h2>
       <p className="lead muted measure">{t.pages.body}</p>
-      <div className="pages-grid">
-        {t.pages.items.map((item) => (
-          <figure key={item.key} className="page-item">
-            <div className="stage">
-              <Watch kind={item.key} theme="neon" online={t.scene.online} label={t.alt[item.key]} />
-            </div>
-            <figcaption>
-              <h3>{item.title}</h3>
-              <p className="muted">{item.body}</p>
-            </figcaption>
-          </figure>
-        ))}
-      </div>
+      <PagesStory items={t.pages.items} online={t.scene.online} labels={{ system: t.alt.system, weather: t.alt.weather, character: t.alt.character }} />
     </Section>
   );
 }
 
 function Themes({ lang }: { lang: Lang }) {
   const t = COPY[lang];
-  const themes = ["modern", "matrix", "neon"] as const;
   return (
     <Section>
       <div className="themes-grid">
@@ -98,14 +95,7 @@ function Themes({ lang }: { lang: Lang }) {
             <figure><div className="tile tile-pixel"><img src={asset("/images/pixel-face.png")} width={512} height={512} alt={t.alt.pixel} loading="lazy" /></div><figcaption className="small muted">{t.themes.pixel}</figcaption></figure>
           </div>
         </div>
-        <div className="theme-watches">
-          {themes.map((theme, i) => (
-            <figure key={theme} className={i === 1 ? "raised" : ""}>
-              <Watch kind="system" theme={theme} online={COPY[lang].scene.online} label={`${t.themes.names[i]} theme`} />
-              <figcaption className="small muted">{t.themes.names[i]}</figcaption>
-            </figure>
-          ))}
-        </div>
+        <ThemeShowcase names={t.themes.names} online={t.scene.online} groupLabel={t.themes.group} />
       </div>
     </Section>
   );
@@ -119,7 +109,7 @@ function Steps({ lang }: { lang: Lang }) {
       <p className="lead muted">{t.body}</p>
       <ol className="steps">
         {t.items.map((s, i) => (
-          <li key={s.title}>
+          <li key={s.title} className="reveal" style={{ "--i": i } as CSSProperties}>
             <span className="step-num mono" aria-hidden="true">{i + 1}</span>
             <h3>{s.title}</h3>
             <p className="muted">{s.body}</p>
@@ -140,8 +130,8 @@ function Trust({ lang }: { lang: Lang }) {
           <p className="lead muted">{t.body}</p>
         </div>
         <dl className="rows">
-          {t.items.map((it) => (
-            <div key={it.title}>
+          {t.items.map((it, i) => (
+            <div key={it.title} className="reveal" style={{ "--i": i } as CSSProperties}>
               <dt className="h3">{it.title}</dt>
               <dd className="muted">{it.body}</dd>
             </div>

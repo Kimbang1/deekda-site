@@ -1,7 +1,8 @@
 import { COPY } from "@/lib/content";
 import { RELEASES, asset, type Lang } from "@/lib/site";
 import { Footer, Header } from "../Chrome";
-import { Badge, ButtonLink, MonitorDesktop, Section } from "../ui";
+import { PcScreen } from "../PcScreen";
+import { Badge, ButtonLink, Section } from "../ui";
 import { GuardianTile, Watch } from "../Watch";
 
 function Hero({ lang }: { lang: Lang }) {
@@ -23,7 +24,7 @@ function Hero({ lang }: { lang: Lang }) {
         </div>
         <div className="scene" aria-hidden="true">
           <div className="scene-monitor">
-            <div className="scene-screen"><MonitorDesktop /></div>
+            <div className="scene-screen"><PcScreen mode="bars" /></div>
             <i className="scene-neck" />
             <i className="scene-base" />
           </div>
@@ -49,7 +50,10 @@ function Mirror({ lang }: { lang: Lang }) {
       <p className="lead muted measure">{t.mirror.body}</p>
       <div className="mirror-grid">
         <figure className="card mirror-pc">
-          <div className="mirror-screen"><MonitorDesktop /></div>
+          <div className="mirror-screen">
+            <PcScreen mode="full" className="pc-full" />
+            <PcScreen mode="compact" className="pc-compact" />
+          </div>
           <figcaption className="small muted">{t.mirror.pc}</figcaption>
         </figure>
         <figure className="card mirror-watch">

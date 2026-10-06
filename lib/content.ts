@@ -54,7 +54,7 @@ const ko: Copy = {
   mirror: {
     title: "미러링이 아닙니다",
     body: "PC 화면을 그대로 줄여 보여 주지 않아요. CPU·GPU·RAM·온도처럼 지금 필요한 수치만 골라 워치 크기에 맞게 다시 그립니다.",
-    pc: "PC — 평소 쓰는 화면은 그대로",
+    pc: "PC — 모든 지표가 한꺼번에",
     watch: "워치 — 상태 수치만 다시 구성",
   },
   pages: {
@@ -170,7 +170,7 @@ const en: Copy = {
   mirror: {
     title: "This is not mirroring",
     body: "We do not shrink your PC screen. We pick the status numbers you need right now, such as CPU, GPU, RAM and temperatures, and redraw them for a watch.",
-    pc: "PC: your usual screen stays as it is",
+    pc: "PC: every metric at once",
     watch: "Watch: just the status numbers, redrawn",
   },
   pages: {

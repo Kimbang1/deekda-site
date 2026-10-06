@@ -194,11 +194,15 @@ main, .site-footer { position: relative; z-index: 1; }
 /* mirror */
 .mirror-grid { display: grid; gap: 16px; margin-top: 48px; }
 .mirror-pc { display: grid; gap: 16px; align-content: space-between; }
-.mirror-screen { border: 1px solid var(--line2); border-radius: 8px; overflow: hidden; aspect-ratio: 400 / 240; width: min(100%, 440px); margin-inline: auto; }
+.mirror-screen { aspect-ratio: 294 / 136; width: 100%; }
 .mirror-screen svg { width: 100%; height: 100%; }
+.pc-full { display: none; }
 .mirror-watch { display: grid; gap: 16px; justify-items: center; align-content: space-between; text-align: center; }
 .mirror-watch svg { width: 120px; height: auto; }
 @media (min-width: 900px) {
+  .mirror-screen { aspect-ratio: 744 / 264; }
+  .pc-full { display: block; }
+  .pc-compact { display: none; }
   .mirror-grid { grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px; }
   .mirror-pc { grid-column: span 8; min-height: 360px; padding: 24px; }
   .mirror-watch { grid-column: span 4; min-height: 360px; padding: 24px; }

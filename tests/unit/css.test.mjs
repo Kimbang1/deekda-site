@@ -53,6 +53,17 @@ test("hero: rings cannot cause horizontal scroll (clip, not hidden) and respect 
   assert.match(css, /@media \(prefers-reduced-motion: reduce\)\s*\{[^}]*\.pulse-ring\s*\{[^}]*animation:\s*none/s);
 });
 
+test("story: sticky stage on desktop only, blur crossfade, no sticky-breaking overflow on its sections", () => {
+  assert.match(css, /\.story-stage\s*\{[^}]*position:\s*sticky/s);
+  assert.match(css, /\.story-screen\s*\{[^}]*filter:\s*blur\(2px\)[^}]*transition:[^}]*200ms/s);
+  assert.match(css, /@media \(prefers-reduced-motion: reduce\)\s*\{[^}]*\.story-screen\s*\{[^}]*filter:\s*none/s);
+  assert.doesNotMatch(css, /\.story[^{]*\{[^}]*overflow:\s*hidden/s);
+});
+
+test("mirroring zoom is scroll-driven CSS, progressive enhancement only", () => {
+  assert.match(css, /@supports \(animation-timeline: view\(\)\)/);
+});
+
 test("reveal is only hidden when the inline js class is set, and respects reduced motion", () => {
   assert.match(css, /\.js \.reveal\s*\{[^}]*opacity:\s*0[^}]*translateY\(8px\)/s);
   assert.match(css, /\.js \.reveal\.in\s*\{[^}]*opacity:\s*1/s);

@@ -26,6 +26,15 @@ for (const [lang, file] of [["ko", "index.html"], ["en", "en/index.html"]]) {
   });
 }
 
+for (const [lang, file] of [["ko", "index.html"], ["en", "en/index.html"]]) {
+  test(`${lang}: sticky story has three steps and three screens`, () => {
+    const html = read(file);
+    assert.equal(count(html, /class="story-step"/g), 3);
+    assert.equal(count(html, /class="story-screen"/g), 3);
+    assert.ok(/class="story"[^>]*data-active="0"/.test(html));
+  });
+}
+
 test("ko/en: the mirror caption says the PC shows every metric at once", () => {
   assert.ok(read("index.html").includes("모든 지표"));
   assert.ok(read("en/index.html").toLowerCase().includes("every metric"));

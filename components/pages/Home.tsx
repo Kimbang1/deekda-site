@@ -2,6 +2,7 @@ import type { CSSProperties } from "react";
 import { COPY } from "@/lib/content";
 import { RELEASES, asset, type Lang } from "@/lib/site";
 import { Footer, Header } from "../Chrome";
+import { PagesStory } from "../PagesStory";
 import { PcScreen } from "../PcScreen";
 import { Tilt } from "../Tilt";
 import { Badge, ButtonLink, Section } from "../ui";
@@ -75,19 +76,7 @@ function Pages({ lang }: { lang: Lang }) {
     <Section tone="alt">
       <h2>{t.pages.title}</h2>
       <p className="lead muted measure">{t.pages.body}</p>
-      <div className="pages-grid">
-        {t.pages.items.map((item) => (
-          <figure key={item.key} className="page-item">
-            <div className="stage">
-              <Watch kind={item.key} theme="neon" online={t.scene.online} label={t.alt[item.key]} />
-            </div>
-            <figcaption>
-              <h3>{item.title}</h3>
-              <p className="muted">{item.body}</p>
-            </figcaption>
-          </figure>
-        ))}
-      </div>
+      <PagesStory items={t.pages.items} online={t.scene.online} labels={{ system: t.alt.system, weather: t.alt.weather, character: t.alt.character }} />
     </Section>
   );
 }

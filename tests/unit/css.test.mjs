@@ -47,6 +47,12 @@ test("buttons give press feedback", () => {
   assert.match(css, /\.btn:active\s*\{[^}]*transform:\s*scale\(0\.97\)/s);
 });
 
+test("hero: rings cannot cause horizontal scroll (clip, not hidden) and respect reduced motion", () => {
+  assert.match(css, /\.hero\s*\{[^}]*overflow-x:\s*clip/s);
+  assert.doesNotMatch(css, /\.hero\s*\{[^}]*overflow(-x)?:\s*hidden/s);
+  assert.match(css, /@media \(prefers-reduced-motion: reduce\)\s*\{[^}]*\.pulse-ring\s*\{[^}]*animation:\s*none/s);
+});
+
 test("reveal is only hidden when the inline js class is set, and respects reduced motion", () => {
   assert.match(css, /\.js \.reveal\s*\{[^}]*opacity:\s*0[^}]*translateY\(8px\)/s);
   assert.match(css, /\.js \.reveal\.in\s*\{[^}]*opacity:\s*1/s);

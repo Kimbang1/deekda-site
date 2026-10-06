@@ -167,7 +167,7 @@ main, .site-footer { position: relative; z-index: 1; }
 .hero-grid { display: grid; gap: 32px; padding-top: 48px; }
 .hero-copy { display: grid; gap: 24px; align-content: start; padding-bottom: 0; }
 .hero-copy .badges { display: flex; flex-wrap: wrap; gap: 8px; }
-.scene { --mw: 232px; --ww: 104px; display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 0; }
+.scene { --mw: 232px; --ww: 120px; display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 0; }
 .scene-monitor { width: var(--mw); }
 .scene-screen { aspect-ratio: 16 / 10; padding: 8px; background: #10172a; border: 1px solid var(--line2); border-radius: 8px; }
 .scene-screen svg { width: 100%; height: 100%; border-radius: 4px; }
@@ -177,12 +177,18 @@ main, .site-footer { position: relative; z-index: 1; }
 .scene-watch svg { width: var(--ww); height: auto; }
 .stand-post { display: block; width: 8px; height: 16px; background: var(--surface2); }
 .stand-base { display: block; width: 64px; height: 8px; margin-top: -8px; border-radius: 4px; background: var(--surface2); position: relative; }
+.scene-watch { position: relative; }
+.scene-watch > svg { position: relative; z-index: 1; }
+.hero-glow { position: absolute; left: 50%; top: 42%; width: 360px; height: 360px; max-width: none; transform: translate(-50%, -50%); background: radial-gradient(circle, color-mix(in srgb, var(--cyan) 22%, transparent), transparent 62%); pointer-events: none; }
+.pulse-ring { position: absolute; left: 50%; top: 42%; width: 300px; height: 300px; border: 1px solid color-mix(in srgb, var(--cyan) 35%, transparent); border-radius: 50%; translate: -50% -50%; opacity: 0; pointer-events: none; animation: pulse 6s var(--ease-out) infinite; animation-delay: calc(var(--n, 0) * 450ms); }
+@keyframes pulse { 0% { transform: scale(0.5); opacity: 0; } 10% { opacity: 0.8; } 45%, 100% { transform: scale(1.7); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .pulse-ring { animation: none; } }
 .desk { background: var(--bg2); border-top: 1px solid var(--line); height: 64px; padding-top: 16px; }
 @media (min-width: 900px) {
   .hero-grid { grid-template-columns: minmax(0, 560px) 1fr; padding-top: 96px; gap: 24px; align-items: end; }
   .hero-copy { padding-bottom: 24px; align-self: start; }
   .hero-copy .lead { max-width: 480px; }
-  .scene { --mw: 432px; --ww: 168px; justify-self: end; gap: 24px; justify-content: flex-start; align-self: end; }
+  .scene { --mw: 432px; --ww: 208px; justify-self: end; gap: 24px; justify-content: flex-start; align-self: end; }
   .scene-neck { height: 40px; width: 24px; }
   .scene-base { width: 144px; }
   .stand-post { height: 24px; }

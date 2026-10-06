@@ -1,7 +1,9 @@
+import type { CSSProperties } from "react";
 import { COPY } from "@/lib/content";
 import { RELEASES, asset, type Lang } from "@/lib/site";
 import { Footer, Header } from "../Chrome";
 import { PcScreen } from "../PcScreen";
+import { Tilt } from "../Tilt";
 import { Badge, ButtonLink, Section } from "../ui";
 import { GuardianTile, Watch } from "../Watch";
 
@@ -22,18 +24,20 @@ function Hero({ lang }: { lang: Lang }) {
             <Badge tone="violet">{t.hero.badgeGalaxy}</Badge>
           </div>
         </div>
-        <div className="scene" aria-hidden="true">
+        <Tilt className="scene">
           <div className="scene-monitor">
             <div className="scene-screen"><PcScreen mode="bars" /></div>
             <i className="scene-neck" />
             <i className="scene-base" />
           </div>
           <div className="scene-watch">
+            <i className="hero-glow" />
+            {[0, 1, 2].map((n) => <i key={n} className="pulse-ring" style={{ "--n": n } as CSSProperties} />)}
             <Watch kind="character" theme="neon" />
             <i className="stand-post" />
             <i className="stand-base" />
           </div>
-        </div>
+        </Tilt>
       </div>
       <div className="desk">
         <div className="wrap"><p className="small muted">{t.hero.caption}</p></div>

@@ -18,6 +18,14 @@ for (const [lang, file] of [["ko", "index.html"], ["en", "en/index.html"]]) {
   });
 }
 
+for (const [lang, file] of [["ko", "index.html"], ["en", "en/index.html"]]) {
+  test(`${lang}: hero has a glow and three pulse rings behind the watch`, () => {
+    const html = read(file);
+    assert.equal(count(html, /class="hero-glow"/g), 1);
+    assert.equal(count(html, /class="pulse-ring"/g), 3);
+  });
+}
+
 test("ko/en: the mirror caption says the PC shows every metric at once", () => {
   assert.ok(read("index.html").includes("모든 지표"));
   assert.ok(read("en/index.html").toLowerCase().includes("every metric"));

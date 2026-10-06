@@ -23,3 +23,17 @@ test("RootShell mounts the dot field before the page content", () => {
   const src = read("components/RootShell.tsx");
   assert.ok(src.indexOf("<DotField") > -1 && src.indexOf("<DotField") < src.indexOf("{children}"));
 });
+
+test("RevealObserver: re-scans on route change and has a fail-safe so content never stays hidden", () => {
+  const src = read("components/RevealObserver.tsx");
+  assert.match(src, /usePathname\(\)/);
+  assert.match(src, /IntersectionObserver/);
+  assert.match(src, /setTimeout/);
+  assert.match(src, /classList\.add\("in"\)/);
+});
+
+test("RootShell sets the js class before paint and mounts RevealObserver", () => {
+  const src = read("components/RootShell.tsx");
+  assert.match(src, /classList\.add\("js"\)/);
+  assert.match(src, /<RevealObserver/);
+});

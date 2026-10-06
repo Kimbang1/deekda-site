@@ -46,3 +46,10 @@ test("hover styles only exist inside the (hover: hover) and (pointer: fine) medi
 test("buttons give press feedback", () => {
   assert.match(css, /\.btn:active\s*\{[^}]*transform:\s*scale\(0\.97\)/s);
 });
+
+test("reveal is only hidden when the inline js class is set, and respects reduced motion", () => {
+  assert.match(css, /\.js \.reveal\s*\{[^}]*opacity:\s*0[^}]*translateY\(8px\)/s);
+  assert.match(css, /\.js \.reveal\.in\s*\{[^}]*opacity:\s*1/s);
+  assert.match(css, /transition-delay:\s*calc\(var\(--i, 0\) \* 50ms\)/);
+  assert.match(css, /@media \(prefers-reduced-motion: reduce\)\s*\{[^}]*\.js \.reveal\s*\{[^}]*transform:\s*none/s);
+});
